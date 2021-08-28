@@ -3,10 +3,7 @@ package com.example.springgallery.mapper;
 import com.example.springgallery.model.Article;
 import com.example.springgallery.viewmodel.ArticleVM;
 import org.bson.types.ObjectId;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Named;
-import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.mapstruct.*;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
@@ -21,6 +18,8 @@ public interface ArticleMapper {
     Article toArticle(ArticleVM articleVM);
 
     List<ArticleVM> toArticleVM(List<Article> articles);
+
+    void mapUpdateArticle(@MappingTarget Article existing, Article article);
 
     @Named("objectIdToString")
     static String objectIdToString(ObjectId objectId) {

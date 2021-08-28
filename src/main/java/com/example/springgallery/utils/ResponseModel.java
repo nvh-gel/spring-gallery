@@ -19,4 +19,12 @@ public class ResponseModel {
     public static ResponseModel accepted(Object data) {
         return new ResponseModel("202", "Request accepted", data);
     }
+
+    public static ResponseModel notFound() {
+        return new ResponseModel("404", "Not found", null);
+    }
+
+    public static ResponseModel unaccepted() {
+        return new ResponseModel("406", "Not accepted", null);
+    }
 }

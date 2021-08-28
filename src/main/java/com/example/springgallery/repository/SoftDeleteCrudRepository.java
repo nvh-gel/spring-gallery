@@ -11,6 +11,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @NoRepositoryBean
 public interface SoftDeleteCrudRepository<T extends BaseModel, I extends ObjectId> extends MongoRepository<T, I> {
@@ -26,4 +27,10 @@ public interface SoftDeleteCrudRepository<T extends BaseModel, I extends ObjectI
     @Query("{ isDeleted : false }")
     @NonNull
     Page<T> findAll(@NonNull Pageable pageable);
+
+    @Override
+    @Transactional(readOnly = true)
+    @Query("{ isDeleted : false , id : ?0}")
+    @NonNull
+    Optional<T> findById(@NonNull I i);
 }

@@ -11,4 +11,8 @@ public interface ArticleService {
     List<ArticleVM> getAllArticles();
 
     List<ArticleVM> getArticlesByPaging(int page, int limit, String sortBy, String order);
+
+    ArticleVM getArticleById(String id);
+
+    ArticleVM updateArticle(ArticleVM articleVM);
 }

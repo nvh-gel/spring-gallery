@@ -8,7 +8,8 @@ import java.time.LocalDateTime;
 public class ArticleVM {
 
     private String id;
-    private String name;
+    private String title;
+    private String caption;
     private String author;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

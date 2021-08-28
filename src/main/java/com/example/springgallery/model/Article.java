@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Setter
 public class Article extends BaseModel {
 
-    private String name;
+    private String title;
+    private String caption;
     private String author;
 }
