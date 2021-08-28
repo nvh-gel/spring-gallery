@@ -33,4 +33,9 @@ public interface SoftDeleteCrudRepository<T extends BaseModel, I extends ObjectI
     @Query("{ isDeleted : false , id : ?0}")
     @NonNull
     Optional<T> findById(@NonNull I i);
+
+    @Transactional(readOnly = true)
+    @Query("{ id : ?0}")
+    @NonNull
+    Optional<T> findAllById(@NonNull I i);
 }

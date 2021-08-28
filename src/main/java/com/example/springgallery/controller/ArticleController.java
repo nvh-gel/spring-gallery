@@ -58,6 +58,27 @@ public class ArticleController {
         return ResponseEntity.accepted().body(ResponseModel.accepted(result));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ResponseModel> deleteArticle(@PathVariable String id) {
+
+        ArticleVM result = articleService.deleteArticle(id);
+
+        if (null == result) {
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(ResponseModel.unaccepted());
+        }
+        return ResponseEntity.accepted().body(ResponseModel.accepted(result));
+    }
+
+    @DeleteMapping("/{id}/remove")
+    public ResponseEntity<ResponseModel> hardDeleteArticle(@PathVariable String id) {
+
+        ArticleVM result = articleService.hardDeleteArticle(id);
+        if (null == result) {
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(ResponseModel.unaccepted());
+        }
+        return ResponseEntity.accepted().body(ResponseModel.accepted(result));
+    }
+
     @Autowired
     public void setArticleService(ArticleService articleService) {
         this.articleService = articleService;

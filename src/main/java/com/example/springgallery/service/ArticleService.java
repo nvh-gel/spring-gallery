@@ -15,4 +15,8 @@ public interface ArticleService {
     ArticleVM getArticleById(String id);
 
     ArticleVM updateArticle(ArticleVM articleVM);
+
+    ArticleVM deleteArticle(String id);
+
+    ArticleVM hardDeleteArticle(String id);
 }

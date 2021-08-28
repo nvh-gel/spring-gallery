@@ -88,6 +88,38 @@ public class ArticleServiceImpl implements ArticleService {
         return null;
     }
 
+    @Override
+    public ArticleVM deleteArticle(String id) {
+
+        if (!ObjectId.isValid(id)) {
+            return null;
+        }
+        ObjectId objectId = new ObjectId(id);
+        Article deleted = articleRepository.findById(objectId).orElse(null);
+        if (null != deleted) {
+            deleted.setDeleted(true);
+            deleted.setUpdatedAt(LocalDateTime.now());
+            articleRepository.save(deleted);
+        }
+        return articleMapper.toArticleVM(deleted);
+    }
+
+    @Override
+    public ArticleVM hardDeleteArticle(String id) {
+
+        if (!ObjectId.isValid(id)) {
+            return null;
+        }
+        ObjectId objectId = new ObjectId(id);
+        Article deleted = articleRepository.findAllById(objectId).orElse(null);
+        if (null != deleted) {
+            deleted.setDeleted(true);
+            deleted.setUpdatedAt(LocalDateTime.now());
+            articleRepository.deleteById(objectId);
+        }
+        return articleMapper.toArticleVM(deleted);
+    }
+
     @Autowired
     public void setArticleRepository(ArticleRepository articleRepository) {
         this.articleRepository = articleRepository;
