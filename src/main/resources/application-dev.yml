@@ -1,0 +1,4 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://galleryapi:N12MiwQ5WmRw@gallery-dev.ttkwj.mongodb.net/gallery?retryWrites=true&w=majority
