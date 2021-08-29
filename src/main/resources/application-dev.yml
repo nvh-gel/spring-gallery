@@ -2,7 +2,16 @@ spring:
   data:
     mongodb:
       uri: mongodb+srv://galleryapi:N12MiwQ5WmRw@gallery-dev.ttkwj.mongodb.net/gallery?retryWrites=true&w=majority
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 5MB
+      max-request-size: 50MB
+cloudinary:
+  name: hox4mdapl
+  key: 946349288714149
+  secret: euAgCp2RVrflzzmyiK7z1O07Zsc
 logging:
   level:
     root: INFO
-    org.springframework.data.mongodb : DEBUG
+    org.springframework.data.mongodb: DEBUG

@@ -7,6 +7,9 @@ import org.springframework.data.annotation.Id;
 
 import java.time.LocalDateTime;
 
+/**
+ * Base database model.
+ */
 @Getter
 @Setter
 public class BaseModel {

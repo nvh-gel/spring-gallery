@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "cloudinary.name",
+      "type": "java.lang.String",
+      "description": "Description for cloudinary.name."
+  }
+] }

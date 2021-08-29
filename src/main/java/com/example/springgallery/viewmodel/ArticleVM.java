@@ -4,6 +4,9 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
+/**
+ * View model for article
+ */
 @Data
 public class ArticleVM {
 

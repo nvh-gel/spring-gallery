@@ -1,0 +1,7 @@
+spring:
+  data:
+    mongodb:
+      uri: ${MONGODB}
+logging:
+  level:
+    root: INFO

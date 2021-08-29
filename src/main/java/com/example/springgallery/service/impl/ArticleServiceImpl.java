@@ -17,12 +17,18 @@ import org.springframework.util.StringUtils;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * Implementation of article service.
+ */
 @Service
 public class ArticleServiceImpl implements ArticleService {
 
     private ArticleRepository articleRepository;
     private final ArticleMapper articleMapper = Mappers.getMapper(ArticleMapper.class);
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ArticleVM createArticle(ArticleVM articleVM) {
 
@@ -33,6 +39,9 @@ public class ArticleServiceImpl implements ArticleService {
         return articleMapper.toArticleVM(result);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<ArticleVM> getAllArticles() {
 
@@ -40,6 +49,9 @@ public class ArticleServiceImpl implements ArticleService {
         return articleMapper.toArticleVM(articles);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<ArticleVM> getArticlesByPaging(int page, int limit, String sortBy, String order) {
 
@@ -55,6 +67,9 @@ public class ArticleServiceImpl implements ArticleService {
         return articleMapper.toArticleVM(articles);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ArticleVM getArticleById(String id) {
 
@@ -67,6 +82,9 @@ public class ArticleServiceImpl implements ArticleService {
         return articleMapper.toArticleVM(article);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ArticleVM updateArticle(ArticleVM articleVM) {
 
@@ -88,6 +106,9 @@ public class ArticleServiceImpl implements ArticleService {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ArticleVM deleteArticle(String id) {
 
@@ -104,6 +125,9 @@ public class ArticleServiceImpl implements ArticleService {
         return articleMapper.toArticleVM(deleted);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ArticleVM hardDeleteArticle(String id) {
 
@@ -120,6 +144,9 @@ public class ArticleServiceImpl implements ArticleService {
         return articleMapper.toArticleVM(deleted);
     }
 
+    /**
+     * Setter for articleRepository.
+     */
     @Autowired
     public void setArticleRepository(ArticleRepository articleRepository) {
         this.articleRepository = articleRepository;

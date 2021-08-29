@@ -8,24 +8,47 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * Rest controller for article
+ */
 @RestController
 @RequestMapping("article")
 public class ArticleController {
 
     private ArticleService articleService;
 
+    /**
+     * Create article
+     *
+     * @param articleVM article data
+     * @return created article
+     */
     @PostMapping
     public ResponseEntity<ResponseModel> createArticle(@RequestBody ArticleVM articleVM) {
 
         return ResponseEntity.accepted().body(ResponseModel.accepted(articleService.createArticle(articleVM)));
     }
 
+    /**
+     * Get all articles.
+     *
+     * @return list of all articles
+     */
     @GetMapping
     public ResponseEntity<ResponseModel> getAllArticles() {
 
         return ResponseEntity.ok(ResponseModel.success(articleService.getAllArticles()));
     }
 
+    /**
+     * Get all articles with paging
+     *
+     * @param page page number
+     * @param limit page size
+     * @param sortBy field to sort
+     * @param order order ASC/DESC
+     * @return list of articles by page
+     */
     @GetMapping("/{page}/{limit}")
     public ResponseEntity<ResponseModel> getArticlesByPaging(@PathVariable int page,
                                                              @PathVariable int limit,
@@ -35,6 +58,11 @@ public class ArticleController {
         return ResponseEntity.ok(ResponseModel.success(articleService.getArticlesByPaging(page, limit, sortBy, order)));
     }
 
+    /**
+     * Get single article by id.
+     * @param id article id
+     * @return found article
+     */
     @GetMapping("/{id}")
     public ResponseEntity<ResponseModel> getArticleById(@PathVariable String id) {
 
@@ -46,6 +74,13 @@ public class ArticleController {
         return ResponseEntity.ok(ResponseModel.success(result));
     }
 
+    /**
+     * Update article
+     *
+     * @param id article id
+     * @param articleVM article data to update
+     * @return updated article
+     */
     @PutMapping("/{id}")
     public ResponseEntity<ResponseModel> updateArticle(@PathVariable String id, @RequestBody ArticleVM articleVM) {
 
@@ -58,6 +93,12 @@ public class ArticleController {
         return ResponseEntity.accepted().body(ResponseModel.accepted(result));
     }
 
+    /**
+     * Soft delete an article
+     *
+     * @param id article id
+     * @return deleted article
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<ResponseModel> deleteArticle(@PathVariable String id) {
 
@@ -69,6 +110,12 @@ public class ArticleController {
         return ResponseEntity.accepted().body(ResponseModel.accepted(result));
     }
 
+    /**
+     * Hard delete an article
+     *
+     * @param id article id
+     * @return removed article
+     */
     @DeleteMapping("/{id}/remove")
     public ResponseEntity<ResponseModel> hardDeleteArticle(@PathVariable String id) {
 
@@ -79,6 +126,9 @@ public class ArticleController {
         return ResponseEntity.accepted().body(ResponseModel.accepted(result));
     }
 
+    /**
+     * Setter for articleService.
+     */
     @Autowired
     public void setArticleService(ArticleService articleService) {
         this.articleService = articleService;
