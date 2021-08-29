@@ -18,6 +18,13 @@ public interface ArticleService {
     ArticleVM createArticle(ArticleVM articleVM);
 
     /**
+     * Send message to queue to create an article.
+     *
+     * @param articleVM article data to create
+     */
+    void sendArticleOnQueue(ArticleVM articleVM);
+
+    /**
      * Get all articles
      *
      * @return list of articles

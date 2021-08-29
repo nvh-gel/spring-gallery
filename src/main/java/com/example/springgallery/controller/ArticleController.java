@@ -26,7 +26,8 @@ public class ArticleController {
     @PostMapping
     public ResponseEntity<ResponseModel> createArticle(@RequestBody ArticleVM articleVM) {
 
-        return ResponseEntity.accepted().body(ResponseModel.accepted(articleService.createArticle(articleVM)));
+        articleService.sendArticleOnQueue(articleVM);
+        return ResponseEntity.accepted().body(ResponseModel.accepted(null));
     }
 
     /**
@@ -85,12 +86,8 @@ public class ArticleController {
     public ResponseEntity<ResponseModel> updateArticle(@PathVariable String id, @RequestBody ArticleVM articleVM) {
 
         articleVM.setId(id);
-        ArticleVM result = articleService.updateArticle(articleVM);
-
-        if (null == result) {
-            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(ResponseModel.unaccepted());
-        }
-        return ResponseEntity.accepted().body(ResponseModel.accepted(result));
+        articleService.sendArticleOnQueue(articleVM);
+        return ResponseEntity.accepted().body(ResponseModel.accepted(null));
     }
 
     /**

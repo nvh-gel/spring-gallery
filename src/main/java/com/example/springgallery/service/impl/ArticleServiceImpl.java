@@ -2,6 +2,7 @@ package com.example.springgallery.service.impl;
 
 import com.example.springgallery.mapper.ArticleMapper;
 import com.example.springgallery.model.Article;
+import com.example.springgallery.producer.ArticleProducer;
 import com.example.springgallery.repository.ArticleRepository;
 import com.example.springgallery.service.ArticleService;
 import com.example.springgallery.viewmodel.ArticleVM;
@@ -25,6 +26,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     private ArticleRepository articleRepository;
     private final ArticleMapper articleMapper = Mappers.getMapper(ArticleMapper.class);
+    private ArticleProducer articleProducer;
 
     /**
      * {@inheritDoc}
@@ -37,6 +39,15 @@ public class ArticleServiceImpl implements ArticleService {
         article.setUpdatedAt(LocalDateTime.now());
         Article result = articleRepository.save(article);
         return articleMapper.toArticleVM(result);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void sendArticleOnQueue(ArticleVM articleVM) {
+
+        articleProducer.send(articleVM);
     }
 
     /**
@@ -150,5 +161,13 @@ public class ArticleServiceImpl implements ArticleService {
     @Autowired
     public void setArticleRepository(ArticleRepository articleRepository) {
         this.articleRepository = articleRepository;
+    }
+
+    /**
+     * Setter for articleProducer.
+     */
+    @Autowired
+    public void setArticleProducer(ArticleProducer articleProducer) {
+        this.articleProducer = articleProducer;
     }
 }

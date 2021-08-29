@@ -7,6 +7,27 @@ spring:
       enabled: true
       max-file-size: 5MB
       max-request-size: 50MB
+  kafka:
+    bootstrap-servers: dory-01.srvs.cloudkafka.com:9094,dory-02.srvs.cloudkafka.com:9094,dory-03.srvs.cloudkafka.com:9094
+    topic: gj6u8n8t-article
+    properties:
+      security:
+        protocol: SASL_SSL
+      sasl:
+        mechanism: SCRAM-SHA-256
+        jaas:
+          config: org.apache.kafka.common.security.scram.ScramLoginModule required username="gj6u8n8t" password="QJXrSTxS6DK4CXQVFndyYtIz8k7A-Q0c";
+    producer:
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      group-id: gj6u8n8t-consumers
+      auto-offset-reset: latest
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: com.example.springgallery.viewmodel
 cloudinary:
   name: hox4mdapl
   key: 946349288714149
