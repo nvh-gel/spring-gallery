@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Config for cloundinary image upload.
+ * Config for cloudinary image upload.
  */
 @Configuration
 public class CloudinaryConfig {

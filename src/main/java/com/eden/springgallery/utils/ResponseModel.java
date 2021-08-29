@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
- * Reponse data wrapper
+ * Response data wrapper
  */
 @Data
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
