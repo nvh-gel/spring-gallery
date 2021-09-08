@@ -9,6 +9,10 @@ version = '0.0.1-SNAPSHOT'
 description = 'spring-gallery'
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
+jar {
+    enabled = false
+}
+
 configurations {
     developmentOnly
     runtimeClasspath {
