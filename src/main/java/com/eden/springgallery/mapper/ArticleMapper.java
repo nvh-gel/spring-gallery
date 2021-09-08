@@ -2,9 +2,10 @@ package com.eden.springgallery.mapper;
 
 import com.eden.springgallery.model.Article;
 import com.eden.springgallery.viewmodel.ArticleVM;
-import org.bson.types.ObjectId;
-import org.mapstruct.*;
-import org.springframework.util.StringUtils;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 
 import java.util.List;
 
@@ -20,7 +21,6 @@ public interface ArticleMapper {
      * @param article article to map
      * @return article view model
      */
-    @Mapping(target = "id", source = "id", qualifiedByName = "objectIdToString")
     ArticleVM toArticleVM(Article article);
 
     /**
@@ -29,7 +29,7 @@ public interface ArticleMapper {
      * @param articleVM vm to map
      * @return article model
      */
-    @Mapping(target = "id", source = "id", qualifiedByName = "stringToObjectId")
+    @Mapping(target = "deleted", ignore = true)
     Article toArticle(ArticleVM articleVM);
 
     /**
@@ -44,34 +44,7 @@ public interface ArticleMapper {
      * Map updating data to a model
      *
      * @param existing model to update
-     * @param article updating data
+     * @param article  updating data
      */
     void mapUpdateArticle(@MappingTarget Article existing, Article article);
-
-    /**
-     * Customer mapper for object id.
-     *
-     * @param objectId object id to map
-     * @return object id string
-     */
-    @Named("objectIdToString")
-    static String objectIdToString(ObjectId objectId) {
-
-        return objectId.toString();
-    }
-
-    /**
-     * Custom mapper for string to object id
-     *
-     * @param str id string
-     * @return object id
-     */
-    @Named("stringToObjectId")
-    static ObjectId stringToObjectId(String str) {
-
-        if (!StringUtils.hasLength(str)) {
-            return null;
-        }
-        return new ObjectId(str);
-    }
 }

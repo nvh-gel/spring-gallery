@@ -44,10 +44,10 @@ public class ArticleController {
     /**
      * Get all articles with paging
      *
-     * @param page page number
-     * @param limit page size
+     * @param page   page number
+     * @param limit  page size
      * @param sortBy field to sort
-     * @param order order ASC/DESC
+     * @param order  order ASC/DESC
      * @return list of articles by page
      */
     @GetMapping("/{page}/{limit}")
@@ -61,11 +61,12 @@ public class ArticleController {
 
     /**
      * Get single article by id.
+     *
      * @param id article id
      * @return found article
      */
     @GetMapping("/{id}")
-    public ResponseEntity<ResponseModel> getArticleById(@PathVariable String id) {
+    public ResponseEntity<ResponseModel> getArticleById(@PathVariable Long id) {
 
         ArticleVM result = articleService.getArticleById(id);
 
@@ -78,12 +79,12 @@ public class ArticleController {
     /**
      * Update article
      *
-     * @param id article id
+     * @param id        article id
      * @param articleVM article data to update
      * @return updated article
      */
     @PutMapping("/{id}")
-    public ResponseEntity<ResponseModel> updateArticle(@PathVariable String id, @RequestBody ArticleVM articleVM) {
+    public ResponseEntity<ResponseModel> updateArticle(@PathVariable Long id, @RequestBody ArticleVM articleVM) {
 
         articleVM.setId(id);
         articleService.sendArticleOnQueue(articleVM);
@@ -97,7 +98,7 @@ public class ArticleController {
      * @return deleted article
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<ResponseModel> deleteArticle(@PathVariable String id) {
+    public ResponseEntity<ResponseModel> deleteArticle(@PathVariable Long id) {
 
         ArticleVM result = articleService.deleteArticle(id);
 
@@ -114,7 +115,7 @@ public class ArticleController {
      * @return removed article
      */
     @DeleteMapping("/{id}/remove")
-    public ResponseEntity<ResponseModel> hardDeleteArticle(@PathVariable String id) {
+    public ResponseEntity<ResponseModel> hardDeleteArticle(@PathVariable Long id) {
 
         ArticleVM result = articleService.hardDeleteArticle(id);
         if (null == result) {

@@ -1,11 +1,9 @@
 package com.eden.springgallery.repository;
 
 import com.eden.springgallery.model.BaseModel;
-import org.bson.types.ObjectId;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.mongodb.repository.Query;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.lang.NonNull;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,51 +18,63 @@ import java.util.Optional;
  * @param <I> Key type
  */
 @NoRepositoryBean
-public interface SoftDeleteCrudRepository<T extends BaseModel, I extends ObjectId> extends MongoRepository<T, I> {
+public interface SoftDeleteCrudRepository<T extends BaseModel, I extends Long> extends JpaRepository<T, I> {
 
-    /**
-     * Find all records.
-     *
-     * @return list of records
-     */
     @Override
     @Transactional(readOnly = true)
-    @Query("{ isDeleted : false }")
+    @Query("select e from #{#entityName} e where e.isDeleted = false")
     @NonNull
     List<T> findAll();
 
-    /**
-     * Find records by paging.
-     *
-     * @param pageable paging information
-     * @return list of records
-     */
     @Override
     @Transactional(readOnly = true)
-    @Query("{ isDeleted : false }")
+    @Query("select e from #{#entityName} e where e.id = ?1 and e.isDeleted = false")
     @NonNull
-    Page<T> findAll(@NonNull Pageable pageable);
+    Optional<T> findById(@NonNull I id);
 
-    /**
-     * Find single record by id
-     *
-     * @param i id to search
-     * @return optional of found record
-     */
+    //Look up deleted entities
+    @Query("select e from #{#entityName} e where e.isDeleted = true")
+    @Transactional(readOnly = true)
+    List<T> findInactive();
+
     @Override
     @Transactional(readOnly = true)
-    @Query("{ isDeleted : false , id : ?0}")
-    @NonNull
-    Optional<T> findById(@NonNull I i);
+    @Query("select count(e) from #{#entityName} e where e.isDeleted = false")
+    long count();
 
-    /**
-     * Find record by id, included soft deleted.
-     *
-     * @param i id to search
-     * @return optional of found record
-     */
+    @Override
     @Transactional(readOnly = true)
-    @Query("{ id : ?0}")
+    default boolean existsById(@NonNull I id) {
+        return findById(id).isPresent();
+    }
+
+    @Override
+    @Query("update #{#entityName} e set e.isDeleted=true where e.id = ?1")
+    @Transactional
+    @Modifying
+    void deleteById(@NonNull Long id);
+
+
+    @Override
+    @Transactional
+    default void delete(T entity) {
+        deleteById(entity.getId());
+    }
+
+    @Override
+    @Transactional
+    default void deleteAll(Iterable<? extends T> entities) {
+        entities.forEach(entity -> deleteById(entity.getId()));
+    }
+
+    @Override
+    @Query("update #{#entityName} e set e.isDeleted=true")
+    @Transactional
+    @Modifying
+    void deleteAll();
+
+    @Query("select e from #{#entityName} e where e.id = ?1")
+    @Transactional(readOnly = true)
     @NonNull
-    Optional<T> findAllById(@NonNull I i);
+    Optional<T> findToRemove(I id);
 }

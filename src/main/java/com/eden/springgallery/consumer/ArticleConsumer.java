@@ -9,7 +9,7 @@ import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
+import org.springframework.util.ObjectUtils;
 
 /**
  * Consumer for article message
@@ -33,7 +33,7 @@ public class ArticleConsumer {
                         @Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition) {
 
         log.info("Message received on queue {}, partition {}: {}", TOPIC, partition, message);
-        if (!StringUtils.hasLength(message.getId())) {
+        if (ObjectUtils.isEmpty(message.getId())) {
             ArticleVM result = articleService.createArticle(message);
             log.info("created article: {}", result);
         } else {
