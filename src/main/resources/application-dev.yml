@@ -1,7 +1,11 @@
 spring:
-  data:
-    mongodb:
-      uri: mongodb+srv://galleryapi:N12MiwQ5WmRw@gallery-dev.ttkwj.mongodb.net/gallery?retryWrites=true&w=majority
+  datasource:
+    url: jdbc:postgresql://ec2-3-230-61-252.compute-1.amazonaws.com:5432/dfhf1tpdav59fm
+    username: lfslyvianzvsdh
+    password: 41101cc4bdde1cd892744f3502bbf41ec4331d5a4cf67e81b7fdbe425b793836
+  jpa:
+    hibernate:
+      ddl-auto: update
   servlet:
     multipart:
       enabled: true
@@ -35,4 +39,3 @@ cloudinary:
 logging:
   level:
     root: INFO
-    org.springframework.data.mongodb: DEBUG

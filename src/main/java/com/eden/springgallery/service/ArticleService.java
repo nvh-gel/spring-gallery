@@ -48,7 +48,7 @@ public interface ArticleService {
      * @param id id to search
      * @return article if found, or else , null
      */
-    ArticleVM getArticleById(String id);
+    ArticleVM getArticleById(Long id);
 
     /**
      * Update article
@@ -64,7 +64,7 @@ public interface ArticleService {
      * @param id article id to delete
      * @return deleted article
      */
-    ArticleVM deleteArticle(String id);
+    ArticleVM deleteArticle(Long id);
 
     /**
      * Hard delete an article.
@@ -72,5 +72,5 @@ public interface ArticleService {
      * @param id article id to remove
      * @return removed article
      */
-    ArticleVM hardDeleteArticle(String id);
+    ArticleVM hardDeleteArticle(Long id);
 }

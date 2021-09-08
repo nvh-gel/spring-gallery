@@ -11,7 +11,7 @@ import java.util.List;
 @Data
 public class ArticleVM {
 
-    private String id;
+    private Long id;
     private String title;
     private String caption;
     private String author;
