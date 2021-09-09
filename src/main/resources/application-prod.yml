@@ -1,3 +1,42 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://ec2-34-196-238-94.compute-1.amazonaws.com:5432/dc9umt5b19tpt7
+    username: nslxrshjiijjna
+    password: 2acd90a6f9ba04f9279aec9d6cd88a2dfdc8addac987f94a0370dac320a98a3b
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 5MB
+      max-request-size: 50MB
+  kafka:
+    bootstrap-servers: dory-01.srvs.cloudkafka.com:9094,dory-02.srvs.cloudkafka.com:9094,dory-03.srvs.cloudkafka.com:9094
+    topic: xoif27qm-article
+    properties:
+      security:
+        protocol: SASL_SSL
+      sasl:
+        mechanism: SCRAM-SHA-256
+        jaas:
+          config: org.apache.kafka.common.security.scram.ScramLoginModule required username="xoif27qm" password="2GoAztEwmJEm2XWmOi9bNGtfQ09s9suW";
+    producer:
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      group-id: xoif27qm-consumers
+      auto-offset-reset: latest
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: com.eden.springgallery.viewmodel
+cloudinary:
+  name: hpmrkocee
+  key: 377328777356572
+  secret: oh6QMURw6Kx6ATcUaEW1ldKvSDI
 logging:
   level:
     root: INFO
